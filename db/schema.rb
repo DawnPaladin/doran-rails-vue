@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521214106) do
+ActiveRecord::Schema.define(version: 20170521222655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,31 +24,49 @@ ActiveRecord::Schema.define(version: 20170521214106) do
 
   create_table "counters", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "champion_id"
+    t.integer  "counters_id"
+    t.integer  "user_id"
+    t.index ["champion_id"], name: "index_counters_on_champion_id", using: :btree
+    t.index ["user_id"], name: "index_counters_on_user_id", using: :btree
   end
 
   create_table "positions", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "roster_id"
+    t.index ["roster_id"], name: "index_positions_on_roster_id", using: :btree
   end
 
   create_table "rosters", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_rosters_on_user_id", using: :btree
   end
 
   create_table "strengths", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "champion_id"
+    t.integer  "user_id"
+    t.index ["champion_id"], name: "index_strengths_on_champion_id", using: :btree
+    t.index ["user_id"], name: "index_strengths_on_user_id", using: :btree
   end
 
   create_table "synergies", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "champion_id"
+    t.integer  "synergizes_with_id"
+    t.integer  "user_id"
+    t.index ["champion_id"], name: "index_synergies_on_champion_id", using: :btree
+    t.index ["user_id"], name: "index_synergies_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -65,14 +83,31 @@ ActiveRecord::Schema.define(version: 20170521214106) do
     t.integer  "player_id"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "roster_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["roster_id"], name: "index_users_on_roster_id", using: :btree
   end
 
   create_table "weaknesses", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "champion_id"
+    t.integer  "user_id"
+    t.index ["champion_id"], name: "index_weaknesses_on_champion_id", using: :btree
+    t.index ["user_id"], name: "index_weaknesses_on_user_id", using: :btree
   end
 
+  add_foreign_key "counters", "champions"
+  add_foreign_key "counters", "users"
+  add_foreign_key "positions", "rosters"
+  add_foreign_key "rosters", "users"
+  add_foreign_key "strengths", "champions"
+  add_foreign_key "strengths", "users"
+  add_foreign_key "synergies", "champions"
+  add_foreign_key "synergies", "users"
+  add_foreign_key "users", "rosters"
+  add_foreign_key "weaknesses", "champions"
+  add_foreign_key "weaknesses", "users"
 end
