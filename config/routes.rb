@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  root to: 'home#index'
+
+  resources :champions, only: [:index]
+
+  root to: 'champions#index'
 
 end
