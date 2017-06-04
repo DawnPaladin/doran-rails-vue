@@ -8,5 +8,7 @@
 <h1>Champions</h1>
 
 <div id="champions">
-  <div is="champ-tile" v-for="champ in champs" :champ="champ"></div>
+  <input id="filter-champs" v-model="champFilterText" placeholder="Find a champion"/>
+  {{ champFilterText }}
+  <div is="champ-tile" v-for="champ in filteredChamps" :champ="champ"></div>
 </div>

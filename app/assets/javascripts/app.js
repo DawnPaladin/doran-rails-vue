@@ -2,10 +2,10 @@ var champs = new Vue({
   el: '#champions',
   data: {
     champs: [],
+    champFilterText: ''
   },
   mounted: function() {
-    var that;
-    that = this;
+    var that = this;
     $.ajax({
       url: '/champions.json',
       success: function(res) {
@@ -13,5 +13,13 @@ var champs = new Vue({
         console.log(res);
       }
     });
+  },
+  computed: {
+    filteredChamps: function() {
+      var that = this;
+      return this.champs.filter(function(champ) {
+        return champ.name.toLowerCase().startsWith(that.champFilterText.toLowerCase());
+      });
+    }
   }
 });
