@@ -9,6 +9,5 @@
 
 <div id="champions">
   <input id="filter-champs" v-model="champFilterText" placeholder="Find a champion"/>
-  {{ champFilterText }}
   <div is="champ-tile" v-for="champ in filteredChamps" :champ="champ"></div>
 </div>
