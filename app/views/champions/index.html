@@ -1,8 +1,12 @@
-<h1>Champions</h1>
-
-<div id="champions">
-  <div class="champ" v-for="champ in champs">
+<script type="text/x-template" id="champ-tile">
+  <div class="champ">
     <img :src="champ.portrait" alt="" class="champ-icon">
     {{ champ.name }}
   </div>
+</script>
+
+<h1>Champions</h1>
+
+<div id="champions">
+  <div is="champ-tile" v-for="champ in champs" :champ="champ"></div>
 </div>
