@@ -1,0 +1,8 @@
+<h1>Champions</h1>
+
+<div id="champions">
+  <div class="champ" v-for="champ in champs">
+    <img :src="champ.portrait" alt="" class="champ-icon">
+    {{ champ.name }}
+  </div>
+</div>

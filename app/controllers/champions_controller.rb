@@ -1,6 +1,10 @@
 class ChampionsController < ApplicationController
 
   def index
-    render json: Champion.all, only: [:name, :portrait]
+    @champs = Champion.all
+    respond_to do |format|
+      format.html
+      format.json { render json: @champs, only: [:name, :portrait] }
+    end
   end
 end
