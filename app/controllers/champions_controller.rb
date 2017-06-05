@@ -4,7 +4,7 @@ class ChampionsController < ApplicationController
     @champs = Champion.all
     respond_to do |format|
       format.html
-      format.json { render json: @champs, only: [:name, :portrait] }
+      format.json { render json: @champs, only: [:name, :portrait, :strengths, :weaknesses] }
     end
   end
 end

@@ -5,9 +5,8 @@
   </div>
 </script>
 
-<h1>Champions</h1>
+<h1>My Roster</h1>
 
-<div id="champions">
-  <input id="filter-champs" v-model="champFilterText" placeholder="Find a champion"/>
-  <div is="champ-tile" v-for="champ in filteredChamps" :champ="champ"></div>
+<div id="roster">
+  <div is="roster-position" v-for="position in rosterPositions" :position="position">{{ position.name }}</div>
 </div>

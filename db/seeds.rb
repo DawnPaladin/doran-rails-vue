@@ -1,5 +1,10 @@
 puts "Emptying database"
+Position.destroy_all
+Roster.destroy_all
+Strength.destroy_all
+Weakness.destroy_all
 Champion.destroy_all
+User.destroy_all
 
 puts "Fetching champion data"
 champion_json = HTTParty.get('http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json')
@@ -15,5 +20,14 @@ if champion_json['type'] == 'champion'
     c.save
   end
 end
+
+puts "Creating roster"
+user = User.create(email: "admin@doran.com", password: "adminpass")
+roster = user.create_roster
+Position.create(name: "Top", roster: roster)
+Position.create(name: "Jungle", roster: roster)
+Position.create(name: "Mid", roster: roster)
+Position.create(name: "Bottom", roster: roster)
+Position.create(name: "Support", roster: roster)
 
 puts "Seeding complete"
